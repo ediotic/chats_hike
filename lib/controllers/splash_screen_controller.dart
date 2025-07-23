@@ -20,6 +20,7 @@ class SplashScreenController extends GetxController {
     // navigate 
    Future.delayed(const Duration(seconds: 4), () {
   Get.offAllNamed(AppRoutes.welcomeScreen);
+  Get.delete<SplashScreenController>();
 });
 
   }

@@ -67,7 +67,7 @@ class AuthBody extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       AnimatedContainer(
                         height: 3,
                         width: isLogin.value ? 0 : 85,
@@ -83,8 +83,8 @@ class AuthBody extends StatelessWidget {
               ],
             ),
           ),
-          Obx(() => isLogin.value ? LoginForm() : SignUpForm()),
-          SizedBox(height: 10),
+          Obx(() => isLogin.value ?const LoginForm() :  const SignUpForm()),
+           const SizedBox(height: 10),
         ],
       ),
     );
