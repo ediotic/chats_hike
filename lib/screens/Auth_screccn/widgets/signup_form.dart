@@ -14,7 +14,7 @@ class SignUpForm extends StatelessWidget {
     final emailController = TextEditingController();
     final nameController = TextEditingController();
     final passwordController = TextEditingController();
-    final authController = Get.put(AuthController());
+    final authController = Get.find<AuthController>();
     RxBool _obsecureText = false.obs;
     return Column(
       children: [

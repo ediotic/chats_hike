@@ -13,7 +13,8 @@ class SpalshScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.sizeOf(context);
-    final SplashScreenController controller = Get.put(SplashScreenController());
+   final SplashScreenController controller = Get.find<SplashScreenController>();
+
     return Scaffold(
       body: Center(
         child: Obx(() {

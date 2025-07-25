@@ -1,7 +1,6 @@
-import 'package:chats_hike/utils/app_routes.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../controllers/auth_controller.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_strings.dart';
@@ -14,7 +13,7 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
-    final authController = Get.put(AuthController());
+    final authController = Get.find<AuthController>();
     RxBool _obsecureText = false.obs;
     return Column(
       children: [
@@ -94,7 +93,6 @@ class LoginForm extends StatelessWidget {
                     emailController.text,
                     passwordController.text,
                   );
-                  // Get.offAllNamed(AppRoutes.homeScreen);
                 },
                 icon: Icons.arrow_forward_ios,
                 iconColor: AppColors.bluePrimary,

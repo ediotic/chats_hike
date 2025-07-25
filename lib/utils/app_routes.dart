@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../screens/Auth_screccn/auth_screen.dart';
 import '../screens/chat_screen/chat_screen.dart';
 import '../screens/home_screen/home_screen.dart';
@@ -13,8 +12,13 @@ class AppRoutes {
   static const homeScreen = "/homeScreen";
   static const chatScreen = "/chatScreen";
 
+
+
   static final List<GetPage> routes = [
-    GetPage(name: splashScreen, page: () => SpalshScreen()),
+    GetPage(
+      name: splashScreen,
+      page: () => SpalshScreen(),
+     ),
     GetPage(
       name: welcomeScreen,
       page: () => const WelcomeScreen(),

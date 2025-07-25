@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'bindings/app_bindings.dart';
 import 'utils/app_routes.dart';
 import 'utils/app_strings.dart';
 import 'utils/app_themes.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       getPages: AppRoutes.routes,
       initialRoute: AppRoutes.splashScreen,
+      initialBinding: AppBindings(),
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       themeMode: ThemeMode.dark,
