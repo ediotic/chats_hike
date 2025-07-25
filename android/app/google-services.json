@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "747272630499",
+    "project_id": "chat-hike-341d8",
+    "storage_bucket": "chat-hike-341d8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747272630499:android:639635346e84503e3055d6",
+        "android_client_info": {
+          "package_name": "ediotic.com.chats_hike"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKFuORAeDDKNj3Fq712xwCVJYmrMf0oKM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

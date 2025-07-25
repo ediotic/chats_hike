@@ -17,7 +17,6 @@ class AuthScreen extends StatelessWidget {
         body: Center(
           child: SingleChildScrollView(
             child: Column(
-
               children: [
                 Image.asset(AppIcons.mainAppIcon, width: mq.width * 0.3),
                 SizedBox(height: 10),
@@ -30,8 +29,8 @@ class AuthScreen extends StatelessWidget {
                     color: AppColors.white,
                   ),
                 ),
+                // auth body
                 AuthBody(),
-                
               ],
             ),
           ),

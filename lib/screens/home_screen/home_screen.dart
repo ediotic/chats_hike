@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/bottom_nav_controller.dart';
 import '../../widgets/app_chat_list.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_strings.dart';
 
 class HomeScreen extends StatelessWidget  {
   const HomeScreen({super.key});

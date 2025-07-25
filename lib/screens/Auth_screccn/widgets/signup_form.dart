@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_strings.dart';
 import '../../../widgets/button.dart';
@@ -10,6 +11,10 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final nameController = TextEditingController();
+    final passwordController = TextEditingController();
+    final authController = Get.put(AuthController());
     RxBool _obsecureText = false.obs;
     return Column(
       children: [
@@ -17,6 +22,7 @@ class SignUpForm extends StatelessWidget {
 
         // name field
         TextField(
+          controller: nameController,
           style: TextStyle(color: AppColors.white),
           decoration: InputDecoration(
             fillColor: AppColors.bluePrimary,
@@ -42,6 +48,7 @@ class SignUpForm extends StatelessWidget {
         SizedBox(height: 20),
         // email field
         TextField(
+          controller: emailController,
           style: TextStyle(color: AppColors.white),
           decoration: InputDecoration(
             fillColor: AppColors.bluePrimary,
@@ -69,6 +76,7 @@ class SignUpForm extends StatelessWidget {
         // password field
         Obx(
           () => TextField(
+            controller: passwordController,
             style: TextStyle(color: AppColors.white),
             obscureText: _obsecureText.value,
             decoration: InputDecoration(
@@ -102,13 +110,26 @@ class SignUpForm extends StatelessWidget {
         ),
         SizedBox(height: 30),
 
-        // login Button
-        AppButton(
-          title: AppStrings.signUp,
-          onTap: () {},
-          icon: Icons.lock_open_outlined,
-          iconColor: AppColors.bluePrimary,
-          elevation: 8,
+        // signup button
+        Obx(
+          () => authController.isLoading.value
+              ? CircularProgressIndicator(color: AppColors.blueSecondary)
+              : AppButton(
+                  title: AppStrings.signUp,
+                  onTap: () {
+                    authController.createUser(
+                      emailController.text,
+                      passwordController.text,
+                      () {
+                        emailController.clear();
+                        passwordController.clear();
+                      },
+                    );
+                  },
+                  icon: Icons.lock_open_outlined,
+                  iconColor: AppColors.bluePrimary,
+                  elevation: 8,
+                ),
         ),
       ],
     );

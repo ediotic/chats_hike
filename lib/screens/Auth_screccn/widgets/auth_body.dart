@@ -11,7 +11,7 @@ class AuthBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RxBool isLogin = false.obs;
+    RxBool isLogin = true.obs;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),

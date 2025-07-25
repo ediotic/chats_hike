@@ -2,6 +2,7 @@ import 'package:chats_hike/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_strings.dart';
 import '../../../widgets/button.dart';
@@ -11,6 +12,9 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final authController = Get.put(AuthController());
     RxBool _obsecureText = false.obs;
     return Column(
       children: [
@@ -18,6 +22,7 @@ class LoginForm extends StatelessWidget {
 
         // email field
         TextField(
+          controller: emailController,
           style: TextStyle(color: AppColors.white),
           decoration: InputDecoration(
             fillColor: AppColors.bluePrimary,
@@ -45,6 +50,7 @@ class LoginForm extends StatelessWidget {
         // password field
         Obx(
           () => TextField(
+            controller: passwordController,
             style: TextStyle(color: AppColors.white),
             obscureText: _obsecureText.value,
             decoration: InputDecoration(
@@ -79,13 +85,22 @@ class LoginForm extends StatelessWidget {
         SizedBox(height: 30),
 
         // login Button
-        AppButton(
-          title: AppStrings.login,
-          onTap: () => Get.offAllNamed(AppRoutes.homeScreen),
-          icon: Icons.arrow_forward_ios,
-          iconColor: AppColors.bluePrimary,
-          elevation: 8,
-        ),
+       Obx(() =>     authController.isLoading.value
+            ? CircularProgressIndicator(color: AppColors.blueSecondary,)
+            : AppButton(
+                title: AppStrings.login,
+                onTap: () {
+                  authController.login(
+                    emailController.text,
+                    passwordController.text,
+                  );
+                  // Get.offAllNamed(AppRoutes.homeScreen);
+                },
+                icon: Icons.arrow_forward_ios,
+                iconColor: AppColors.bluePrimary,
+                elevation: 8,
+              ),
+              ),
       ],
     );
   }
