@@ -3,7 +3,9 @@ import '../screens/Auth_screccn/auth_screen.dart';
 import '../screens/chat_screen/chat_screen.dart';
 import '../screens/home_screen/home_screen.dart';
 import '../screens/onboarding_screen/splash_screen/spalsh_screen.dart';
+import '../screens/update_profile/update_profile.dart';
 import '../screens/onboarding_screen/welcome_screen/welcome_screen.dart';
+import '../screens/profile_screen/receiver_profile.dart';
 
 class AppRoutes {
   static const splashScreen = "/splashScreen";
@@ -11,6 +13,8 @@ class AppRoutes {
   static const authScreen = "/authScreen";
   static const homeScreen = "/homeScreen";
   static const chatScreen = "/chatScreen";
+  static const receiverScreen = "/receiverScreen";
+  static const updateProfileScreen = "/updateScreen";
 
 
 
@@ -40,6 +44,16 @@ class AppRoutes {
       page: () => const ChatScreen(),
       transition: Transition.circularReveal,
       transitionDuration: Duration(milliseconds: 150),
+    ),
+    GetPage(
+      name: receiverScreen,
+      page: () => const ReceiverProfileScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: updateProfileScreen,
+      page: () => const UpdateProfileScreen(),
+      transition: Transition.rightToLeft,
     ),
   ];
 }

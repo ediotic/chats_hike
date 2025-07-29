@@ -120,9 +120,11 @@ class SignUpForm extends StatelessWidget {
                     authController.createUser(
                       emailController.text,
                       passwordController.text,
+                      nameController.text,
                       () {
                         emailController.clear();
                         passwordController.clear();
+                        nameController.clear();
                       },
                     );
                   },

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../utils/app_colors.dart';
+import '../utils/app_routes.dart';
 import '../utils/app_strings.dart';
 import 'chat_tiles.dart';
 
@@ -29,7 +31,9 @@ class AppChatList extends StatelessWidget {
             color: AppColors.white,
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(AppRoutes.receiverScreen);
+            },
             icon: Icon(Icons.more_vert),
             iconSize: 30,
             color: AppColors.white,
