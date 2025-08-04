@@ -32,7 +32,7 @@ class AppChatList extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoutes.receiverScreen);
+              Get.toNamed(AppRoutes.profileScreen);
             },
             icon: Icon(Icons.more_vert),
             iconSize: 30,

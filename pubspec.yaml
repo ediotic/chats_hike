@@ -22,6 +22,7 @@ dependencies:
   firebase_auth: ^5.7.0    # for firebase Authentication
   cloud_firestore: ^5.6.12  # for firestore
   firebase_storage: ^12.4.10   # for storage
+  image_picker: ^1.1.2          # for getting image from gallery
 
 
 

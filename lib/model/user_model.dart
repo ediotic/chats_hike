@@ -5,6 +5,9 @@ class UserModel {
   late final String? profileImage;
   late final String? phoneNumber;
   late final String? about;
+  late final String? createdAt;
+  late final String? lastOnlineStatus;
+  late final String? status;
 
   UserModel({
     this.id,
@@ -13,6 +16,9 @@ class UserModel {
     this.profileImage,
     this.phoneNumber,
     this.about,
+    this.createdAt,
+    this.lastOnlineStatus,
+    this.status,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +28,9 @@ class UserModel {
     profileImage = json['profileImage'];
     phoneNumber = json['phoneNumber'];
     about = json['about'];
+    createdAt = json['createdAt'];
+    lastOnlineStatus = json['lastOnlineStatus'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -32,6 +41,9 @@ class UserModel {
     _data['profileImage'] = profileImage;
     _data['phoneNumber'] = phoneNumber;
     _data['about'] = about;
+    _data['createdAt'] = createdAt;
+    _data['lastOnlineStatus'] = lastOnlineStatus;
+    _data['status'] = status;
     return _data;
   }
 }

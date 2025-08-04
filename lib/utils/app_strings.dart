@@ -9,6 +9,8 @@ class AppStrings {
   static const personalInfo = "Personal info";
   static const signUp = "Sign Up";
   static const save = "Save";
+  static const edit = "Edit";
+  static const profile = "Profile";
   static const update = "Update";
   static const updateProfile = "Update Profile";
   static const typeMsg = "Type message...";
