@@ -16,7 +16,7 @@ class AppBindings extends Bindings{
     Get.lazyPut(() => BottomNavController());
     Get.lazyPut(() => ChatController());
     Get.lazyPut(() => AuthController());
-    Get.lazyPut(() => ProfileController());
+    Get.lazyPut(() => ProfileController(), fenix: true );
     Get.lazyPut(() => ImagePickerController());
    
   }

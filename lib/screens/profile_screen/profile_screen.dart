@@ -22,279 +22,290 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     mq = MediaQuery.sizeOf(context);
     final profileController = Get.find<ProfileController>();
-    // final profileController = Get.put(ProfileController());
     final imagePickerController = Get.find<ImagePickerController>();
-    final nameController = TextEditingController(
-      text: profileController.currentUser.value.name,
-    );
-    final emailController = TextEditingController(
-      text: profileController.currentUser.value.email,
-    );
-    final aboutController = TextEditingController(
-      text: profileController.currentUser.value.about,
-    );
-    final phoneController = TextEditingController(
-      text: profileController.currentUser.value.phoneNumber,
-    );
     RxBool isEdit = false.obs;
     RxString imagePathGallery = "".obs;
     RxString imagePathcamera = "".obs;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.grey5656,
         centerTitle: false,
         leading: InkWell(
           onTap: () => Get.back(),
-          child: Icon(Icons.arrow_back_ios),
+          child: const Icon(Icons.arrow_back_ios),
         ),
         title: Text(
           AppStrings.profile,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w400,
             color: AppColors.white,
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                // height: mq.height * 0.60,
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: AppColors.grey5656,
-                  borderRadius: BorderRadius.circular(30).copyWith(
-                    topRight: Radius.circular(0),
-                    topLeft: Radius.circular(0),
+      body: Obx(() {
+        if (profileController.isLoading.value) {
+          return const Center(
+            child: CircularProgressIndicator(color: AppColors.blueSecondary),
+          );
+        }
+
+        final nameController = TextEditingController(
+          text: profileController.currentUser.value.name,
+        );
+        final emailController = TextEditingController(
+          text: profileController.currentUser.value.email,
+        );
+        final aboutController = TextEditingController(
+          text: profileController.currentUser.value.about,
+        );
+        final phoneController = TextEditingController(
+          text: profileController.currentUser.value.phoneNumber,
+        );
+
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: AppColors.grey5656,
+                    borderRadius: BorderRadius.circular(30).copyWith(
+                      topRight: const Radius.circular(0),
+                      topLeft: const Radius.circular(0),
+                    ),
                   ),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Obx(
-                                () => isEdit.value
-                                    ? Stack(
-                                        children: [
-                                          CircleAvatar(
-                                            radius: 80,
-                                            backgroundColor: AppColors.grey1212,
-                                            child: Icon(
-                                              CupertinoIcons.photo,
-                                              size: 25,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Obx(
+                                  () => isEdit.value
+                                      ? Stack(
+                                          children: [
+                                            const CircleAvatar(
+                                              radius: 80,
+                                              backgroundColor:
+                                                  AppColors.grey1212,
+                                              child: Icon(
+                                                CupertinoIcons.photo,
+                                                size: 25,
+                                              ),
                                             ),
-                                          ),
-                                          Positioned(
-                                            child: InkWell(
-                                              onTap: () {
-                                                Get.bottomSheet(
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      color: AppColors.grey5656,
-                                                      borderRadius:
-                                                          BorderRadius.vertical(
-                                                            top:
-                                                                Radius.circular(
-                                                                  30,
+                                            Positioned(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  Get.bottomSheet(
+                                                    Container(
+                                                      decoration: const BoxDecoration(
+                                                        color:
+                                                            AppColors.grey5656,
+                                                        borderRadius:
+                                                            BorderRadius.vertical(
+                                                              top:
+                                                                  Radius.circular(
+                                                                    30,
+                                                                  ),
+                                                            ),
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets.symmetric(
+                                                                  vertical: 30,
                                                                 ),
-                                                          ),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets.symmetric(
-                                                                vertical: 30,
-                                                              ),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              // gallery image picker
-                                                              InkWell(
-                                                                onTap: () async {
-                                                                  // Get.back();
-                                                                  imagePathGallery
-                                                                          .value =
-                                                                      await imagePickerController
-                                                                          .pickImageFromGallery();
-                                                                  print(
-                                                                    "imaged picked" +
-                                                                        imagePathGallery
-                                                                            .value,
-                                                                  );
-                                                                  ;
-                                                                },
-                                                                child: Image.asset(
-                                                                  AppIcons
-                                                                      .gallery,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                InkWell(
+                                                                  onTap: () async {
+                                                                    imagePathGallery
+                                                                            .value =
+                                                                        await imagePickerController
+                                                                            .pickImageFromGallery();
+                                                                    Get.back();
+                                                                  },
+                                                                  child: Image.asset(
+                                                                    AppIcons
+                                                                        .gallery,
+                                                                    width:
+                                                                        mq.width *
+                                                                        .20,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
                                                                   width:
                                                                       mq.width *
-                                                                      .20,
+                                                                      0.05,
                                                                 ),
-                                                              ),
-                                                              SizedBox(
-                                                                width:
-                                                                    mq.width *
-                                                                    0.05,
-                                                              ),
-                                                              // camera image picker
-                                                              InkWell(
-                                                                onTap: () async {
-                                                                  imagePathcamera
-                                                                          .value =
-                                                                      await imagePickerController
-                                                                          .pickImageFromCamera();
-                                                                },
-                                                                child: Image.asset(
-                                                                  AppIcons
-                                                                      .camera,
-                                                                  width:
-                                                                      mq.width *
-                                                                      .20,
+                                                                InkWell(
+                                                                  onTap: () async {
+                                                                    imagePathcamera
+                                                                            .value =
+                                                                        await imagePickerController
+                                                                            .pickImageFromCamera();
+                                                                    Get.back();
+                                                                  },
+                                                                  child: Image.asset(
+                                                                    AppIcons
+                                                                        .camera,
+                                                                    width:
+                                                                        mq.width *
+                                                                        .20,
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child:
-                                                  (imagePathGallery
-                                                          .value
-                                                          .isEmpty &&
-                                                      imagePathcamera
-                                                          .value
-                                                          .isEmpty)
-                                                  ? Image.asset(
-                                                      AppIcons.edit,
-                                                      width: 35,
-                                                    )
-                                                  : Image.file(
-                                                      File(
-                                                        imagePathGallery
-                                                                .value
-                                                                .isNotEmpty
-                                                            ? imagePathGallery
-                                                                  .value
-                                                            : imagePathcamera
-                                                                  .value,
+                                                        ],
                                                       ),
                                                     ),
+                                                  );
+                                                },
+                                                child:
+                                                    (imagePathGallery
+                                                            .value
+                                                            .isEmpty &&
+                                                        imagePathcamera
+                                                            .value
+                                                            .isEmpty)
+                                                    ? Image.asset(
+                                                        AppIcons.edit,
+                                                        width: 35,
+                                                      )
+                                                    : ClipOval(
+                                                        child: Container(
+                                                          width: 160,
+                                                          height: 160,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color: AppColors
+                                                                    .grey1212,
+                                                              ),
+                                                          child:
+                                                              (imagePathGallery
+                                                                      .value
+                                                                      .isNotEmpty ||
+                                                                  imagePathcamera
+                                                                      .value
+                                                                      .isNotEmpty)
+                                                              ? Image.file(
+                                                                  File(
+                                                                    imagePathGallery
+                                                                            .value
+                                                                            .isNotEmpty
+                                                                        ? imagePathGallery
+                                                                              .value
+                                                                        : imagePathcamera
+                                                                              .value,
+                                                                  ),
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                )
+                                                              : null,
+                                                        ),
+                                                      ),
+                                              ),
+                                              bottom: 0,
+                                              right: 0,
                                             ),
-                                            bottom: 8,
-                                            right: 6,
+                                          ],
+                                        )
+                                      : const CircleAvatar(
+                                          radius: 80,
+                                          backgroundColor: AppColors.grey1212,
+                                          child: Icon(
+                                            CupertinoIcons.photo,
+                                            size: 25,
                                           ),
-                                        ],
-                                      )
-                                    : CircleAvatar(
-                                        radius: 80,
-                                        backgroundColor: AppColors.grey1212,
-                                        child: Icon(
-                                          CupertinoIcons.photo,
-                                          size: 25,
                                         ),
-                                      ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Obx(
+                              () => EditProfileTextfield(
+                                label: "Name",
+                                icon: CupertinoIcons.person,
+                                controller: nameController,
+                                isEnabled: isEdit.value,
                               ),
-                            ],
-                          ),
-
-                          SizedBox(height: 20),
-                          // name field
-                          Obx(
-                            () => EditProfileTextfield(
-                              label: "Name",
-                              icon: CupertinoIcons.person,
-                              controller: nameController,
-                              isEnabled: isEdit.value,
                             ),
-                          ),
-
-                          SizedBox(height: 20),
-                          // email field
-                          EditProfileTextfield(
-                            label: "Email",
-                            icon: CupertinoIcons.mail,
-                            controller: emailController,
-                            isEnabled: false,
-                          ),
-
-                          SizedBox(height: 20),
-                          // about field
-                          Obx(
-                            () => EditProfileTextfield(
-                              label: "About",
-                              icon: CupertinoIcons.info,
-                              controller: aboutController,
-                              isEnabled: isEdit.value,
+                            const SizedBox(height: 20),
+                            EditProfileTextfield(
+                              label: "Email",
+                              icon: CupertinoIcons.mail,
+                              controller: emailController,
+                              isEnabled: false,
                             ),
-                          ),
-
-                          SizedBox(height: 20),
-
-                          // phone field
-                          Obx(
-                            () => EditProfileTextfield(
-                              label: "Phone",
-                              icon: CupertinoIcons.phone,
-                              controller: phoneController,
-                              isEnabled: isEdit.value,
+                            const SizedBox(height: 20),
+                            Obx(
+                              () => EditProfileTextfield(
+                                label: "About",
+                                icon: CupertinoIcons.info,
+                                controller: aboutController,
+                                isEnabled: isEdit.value,
+                              ),
                             ),
-                          ),
-
-                          SizedBox(height: 20),
-
-                          //button
-                          Obx(
-                            () => isEdit.value
-                                ? AppButton(
-                                    title: AppStrings.save,
-                                    onTap: () {
-                                      isEdit.value = false;
-                                    },
-                                    icon: Icons.save,
-                                    backgroundColor: AppColors.bluePrimary,
-                                    textColor: AppColors.grey1212,
-                                    iconColor: AppColors.grey1212,
-                                  )
-                                : AppButton(
-                                    title: AppStrings.edit,
-                                    onTap: () {
-                                      isEdit.value = true;
-                                    },
-                                    icon: CupertinoIcons.pencil_outline,
-                                    backgroundColor: AppColors.bluePrimary,
-                                    textColor: AppColors.grey1212,
-                                    iconColor: AppColors.grey1212,
-                                  ),
-                          ),
-                          SizedBox(height: 10),
-                        ],
+                            const SizedBox(height: 20),
+                            Obx(
+                              () => EditProfileTextfield(
+                                label: "Phone",
+                                icon: CupertinoIcons.phone,
+                                controller: phoneController,
+                                isEnabled: isEdit.value,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Obx(
+                              () => isEdit.value
+                                  ? AppButton(
+                                      title: AppStrings.save,
+                                      onTap: () {
+                                        isEdit.value = false;
+                                      },
+                                      icon: Icons.save,
+                                      backgroundColor: AppColors.bluePrimary,
+                                      textColor: AppColors.grey1212,
+                                      iconColor: AppColors.grey1212,
+                                    )
+                                  : AppButton(
+                                      title: AppStrings.edit,
+                                      onTap: () {
+                                        isEdit.value = true;
+                                      },
+                                      icon: CupertinoIcons.pencil_outline,
+                                      backgroundColor: AppColors.bluePrimary,
+                                      textColor: AppColors.grey1212,
+                                      iconColor: AppColors.grey1212,
+                                    ),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
